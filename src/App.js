@@ -1,25 +1,39 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
 
-function App() {
+function TableGenerator() {
+  const [number, setNumber] = useState('');
+
+  const handleInputChange = (event) => {
+    setNumber(event.target.value);
+  };
+
+  const generateTable = () => {
+    const table = [];
+
+    for (let i = 1; i <= number; i++) {
+      const row = [];
+      for (let j = 1; j <= number; j++) {
+        row.push(<td key={j}>{i * j}</td>);
+      }
+      table.push(<tr key={i}>{row}</tr>);
+    }
+
+    return table;
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <label htmlFor="numberInput">Enter a number:</label>
+      <input
+        type="number"
+        id="numberInput"
+        value={number}
+        onChange={handleInputChange}
+      />
+
+      <table>{generateTable()}</table>
     </div>
   );
 }
 
-export default App;
+export default TableGenerator;
